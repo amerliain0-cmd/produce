@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>世界麵包工坊 - World Bakery Workshop</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        /* 全域核心字體與底色調整 */
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Noto Sans TC', sans-serif;
+            color: #333333;
+            background-color: #FFFDF9;
+        }
+
+        /* 預約/時間軸通用錨點與過渡段落設定 */
+        section {
+            padding: 90px 0;
+            overflow: hidden;
+        }
+
+        /* TimeLine 專屬烘焙工序樣式 */
+        #s07-timeline {
+            position: relative;
+            background-position: center;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        #s07-timeline::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(43, 27, 23, 0.75);
+        }
+
+        #s07-timeline .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .s07-timeline-section {
+            position: relative;
+        }
+
+        .s07-timeline-section::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            transform: translateX(-50%);
+            background: #D4A373;
+            border-radius: 10px;
+        }
+
+        .s07-timeline-section-pointer {
+            position: relative;
+            margin: 50px 0;
+        }
+
+        .s07-timeline-section-pointer::before {
+            content: "";
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background: #FFFDF9;
+            border: 5px solid #D4A373;
+            border-radius: 50%;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            box-shadow: 0 0 10px rgba(212, 163, 115, 0.8);
+        }
+
+        .s07-text {
+            background: #FFFFFF;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: .3s;
+        }
+
+        .s07-text:hover {
+            transform: translateY(-5px);
+        }
+
+        .s07-img {
+            height: 260px;
+            border-radius: 15px;
+            border: 6px solid #FFFFFF;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            background-position: center;
+            background-size: cover;
+        }
+
+        /* 手機板響應式優化 */
+        @media(max-width:768px) {
+            .s07-timeline-section::before {
+                left: 20px;
+            }
+
+            .s07-timeline-section-pointer::before {
+                left: 20px;
+                transform: none;
+            }
+
+            .s07-text, .s07-img {
+                margin-left: 35px;
+            }
+        }
+
+        /* 卡片懸浮通用質感動畫 */
+        .hover-card {
+            transition: all 0.3s ease;
+            border: none;
+        }
+        .hover-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(74, 46, 43, 0.12) !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <section id="s01" class="py-2" style="background-color: #2B1B17;">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <span class="small text-light-50" style="color: #E6B89C; font-size: 13px;"><i class="fa-solid fa-clock me-1"></i> 每日新鮮出爐：08:00 - 21:00</span>
+                <div class="text-end">
+                    <a href="#" class="me-3" style="color: #FFFFFF;"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="me-3" style="color: #E15CD5;"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="me-3" style="color: #06C755;"><i class="fa-brands fa-line"></i></a>
+                    <a href="#" style="color: #FFFFFF;"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <nav class="navbar navbar-expand-lg sticky-top navbar-dark shadow-sm" style="background-color: #4A2E2B; border-bottom: 2px solid #D4A373;">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center fw-bold" href="#" style="letter-spacing: 1px; color: #FFFDF9;">
+                <i class="fa-solid fa-wheat-awn me-2" style="color: #D4A373; font-size: 24px;"></i>
+                世界麵包工坊
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#bakeryNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="bakeryNav">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link px-3 active" href="#s03-hero">首頁</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="#s04-culture">品牌故事</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="#s05-services">職人服務</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="#s06-team">大師團隊</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="#s08-features">美味核心</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="#s12-pricing">經典商品</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="#s13-booking">客製預約</a></li>
+                    <li class="nav-item"><a class="nav-link px-3" href="#s14-stores">門市導覽</a></li>
+                </ul>
+                <div>
+                    <a href="#s13-booking" class="btn btn-sm fw-bold px-3 py-2" style="background-color: #D4A373; color: #4A2E2B; border-radius: 20px;">
+                        <i class="fa-solid fa-calendar-check me-1"></i> 線上預訂
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <section id="s03-hero" class="p-0">
+        <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1920&q=80') center/cover; height: 650px;">
+                    <div class="carousel-caption d-none d-md-block h-100">
+                        <div class="d-flex flex-column justify-content-center h-100 align-items-start text-start col-lg-7">
+                            <h1 class="display-3 fw-bold mb-3" style="color: #FFFDF9; text-shadow: 2px 2px 8px rgba(0,0,0,0.6);">大地麥香的純粹感動</h1>
+                            <p class="lead mb-4" style="color: #FAEDCD;">精選全球單一產區頂級小麥，搭配契作天然酵母老麵，經歷36小時低溫慢速熟成，帶給您純粹的自然歐式麥香。</p>
+                            <a href="#s12-pricing" class="btn btn-lg px-4" style="background-color: #D4A373; color: #4A2E2B; font-weight: bold;">探訪今日出爐項目</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1549931319-a545dcf3bc73?auto=format&fit=crop&w=1920&q=80') center/cover; height: 650px;">
+                    <div class="carousel-caption d-none d-md-block h-100">
+                        <div class="d-flex flex-column justify-content-center h-100 align-items-center text-center mx-auto col-lg-8">
+                            <h2 class="display-3 fw-bold mb-3" style="color: #FFFDF9; text-shadow: 2px 2px 8px rgba(0,0,0,0.6);">傳承百年的歐式工藝</h2>
+                            <p class="lead mb-4" style="color: #FAEDCD;">不走捷徑的繁複手工工序，石板烤爐高溫完美烘焙，外皮酥脆微焦、內餡濕潤彈牙，重現經典巴黎街頭的烘焙感動。</p>
+                            <a href="#s07-timeline" class="btn btn-lg px-4" style="background-color: #4A2E2B; color: #FFFFFF; border: 2px solid #D4A373; font-weight: bold;">了解揉麵製程</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=1920&q=80') center/cover; height: 650px;">
+                    <div class="carousel-caption d-none d-md-block h-100">
+                        <div class="d-flex flex-column justify-content-center h-100 align-items-end text-end ms-auto col-lg-7">
+                            <h2 class="display-3 fw-bold mb-3" style="color: #FFFDF9; text-shadow: 2px 2px 8px rgba(0,0,0,0.6);">經典可頌的層疊美學</h2>
+                            <p class="lead mb-4" style="color: #FAEDCD;">法國 AOP 認證發酵奶油極致折疊，高達16層極致酥皮層次，每一口都伴隨著濃郁高雅的乳香迴盪。</p>
+                            <a href="#s13-booking" class="btn btn-lg px-4" style="background-color: #D4A373; color: #4A2E2B; font-weight: bold;">尊榮主廚專屬訂製</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+        </div>
+    </section>
+
+
+    <section id="s04-culture" style="background-color: #FFFDF9;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <img src="https://images.unsplash.com/photo-1517433456452-f9633a875f6f?auto=format&fit=crop&w=800&q=80" alt="烘焙故事" class="img-fluid rounded-4 shadow">
+                </div>
+                <div class="col-lg-6 ps-lg-5">
+                    <span class="fw-bold px-3 py-1 rounded-pill small" style="background-color: #FAEDCD; color: #4A2E2B;">OUR STORY</span>
+                    <h2 class="display-5 fw-bold mt-3 mb-4" style="color: #4A2E2B;">以雙手溫度，連結人與土地的脈動</h2>
+                    <p class="lead" style="color: #555555; line-height: 1.9;">「世界麵包工坊」創立於對純粹食材的堅持。我們相信，一個真正優質的麵包不需要繁複的化學添加物，只需要最頂級的麵粉、極純淨的水、天然海鹽，以及時間的淬鍊。</p>
+                    <p style="color: #666666; line-height: 1.8;">我們與全球各地的精品永續農場深度契作，精選無農藥殘留的珍貴麥種，並在店內建立獨立的低溫恆溫酵母培育室。每一顆出爐的麵包都盛載著老烘焙師傅數十載的專注經驗，將最單純、純淨且富含生命力的美味，忠實傳遞到您的餐桌上。</p>
+                    <div class="row mt-4">
+                        <div class="col-sm-4">
+                            <h3 class="fw-bold mb-0" style="color: #D4A373;">100%</h3>
+                            <p class="small text-muted">無人工添加物</p>
+                        </div>
+                        <div class="col-sm-4">
+                            <h3 class="fw-bold mb-0" style="color: #D4A373;">36小時</h3>
+                            <p class="small text-muted">低溫長時慢速發酵</p>
+                        </div>
+                        <div class="col-sm-4">
+                            <h3 class="fw-bold mb-0" style="color: #D4A373;">25道</h3>
+                            <p class="small text-muted">傳統手工揉製工序</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="s05-services" style="background-color: #FAEDCD;">
+        <div class="container">
+            <div class="text-center max-width-md mx-auto mb-5">
+                <h2 class="display-5 fw-bold" style="color: #4A2E2B;">精緻烘焙・全方位職人服務</h2>
+                <p class="text-muted">滿足您日常精緻餐點、特殊節慶到商務宴會的所有美味期盼</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h100 p-4 rounded-4 hover-card text-center bg-white">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center mx-auto mb-4" style="width: 80px; height: 80px; background-color: #FFFDF9; border: 2px solid #D4A373;">
+                            <i class="fa-solid fa-store" style="color: #4A2E2B; font-size: 32px;"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3" style="color: #4A2E2B;">每日鮮食預訂</h4>
+                        <p class="text-muted mb-0">提供全品項線上即時預留服務，確保您在下班或指定時間，都能輕鬆外帶到當日剛出爐的限量夢幻精品麵包。</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h100 p-4 rounded-4 hover-card text-center bg-white">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center mx-auto mb-4" style="width: 80px; height: 80px; background-color: #FFFDF9; border: 2px solid #D4A373;">
+                            <i class="fa-solid fa-cake-candles" style="color: #4A2E2B; font-size: 32px;"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3" style="color: #4A2E2B;">私廚客製化烘焙</h4>
+                        <p class="text-muted mb-0">針對特殊過敏原、生酮、低碳水或特定節慶宴會需求，由資深主廚為您量身規劃客製化麥種、無麩質與精緻甜點配方。</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h100 p-4 rounded-4 hover-card text-center bg-white">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center mx-auto mb-4" style="width: 80px; height: 80px; background-color: #FFFDF9; border: 2px solid #D4A373;">
+                            <i class="fa-solid fa-champagne-glasses" style="color: #4A2E2B; font-size: 32px;"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3" style="color: #4A2E2B;">商務茶會外送</h4>
+                        <p class="text-muted mb-0">承接各式大型企業年會、精品VIP發表會與私人家宴茶點。提供精緻一口大小的頂級歐式Finger Food餐點規劃與專車配送。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="s06-team" style="background-color: #FFFDF9;">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold" style="color: #4A2E2B;">世界級大師工藝團隊</h2>
+                <p class="text-muted">匯聚各國烘焙名校與賽事金獎頂尖職人，嚴格控管每一道工序品質</p>
+            </div>
+            <div class="row g-4 text-center">
+                <div class="col-lg-4 col-md-6">
+                    <div class="p-4 rounded-4 bg-white shadow-sm hover-card">
+                        <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=400&h=400&q=80" alt="烘焙總監" class="rounded-circle img-fluid mb-4 border" style="width: 180px; height: 180px; object-fit: cover;">
+                        <h4 class="fw-bold mb-1" style="color: #4A2E2B;">Jean-Luc Martel</h4>
+                        <span class="small d-block mb-3 fw-bold" style="color: #D4A373;">行政烘焙總監 / 法國</span>
+                        <p class="text-muted small">榮獲巴黎歐式傳統法棍大賽金獎。曾在多間巴黎米其林三星餐廳擔任首席首席烘焙長，堅持以純手工法式古法完美復刻經典麥香。</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="p-4 rounded-4 bg-white shadow-sm hover-card">
+                        <img src="https://images.unsplash.com/photo-1581339099316-f7424e651287?auto=format&fit=crop&w=400&h=400&q=80" alt="研發主廚" class="rounded-circle img-fluid mb-4 border" style="width: 180px; height: 180px; object-fit: cover;">
+                        <h4 class="fw-bold mb-1" style="color: #4A2E2B;">佐藤 健一</h4>
+                        <span class="small d-block mb-3 fw-bold" style="color: #D4A373;">技術研發主廚 / 日本</span>
+                        <p class="text-muted small">畢業於東京製菓學校，擁有20年酵母研究經驗。專精於高含水量吐司及湯種技術，將日式細緻柔軟與優雅口感發揮至極致。</p>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mx-auto">
+                    <div class="p-4 rounded-4 bg-white shadow-sm hover-card">
+                        <img src="https://images.unsplash.com/photo-1607990283143-e81e7a2c93ab?auto=format&fit=crop&w=400&h=400&q=80" alt="工藝師" class="rounded-circle img-fluid mb-4 border" style="width: 180px; height: 180px; object-fit: cover;">
+                        <h4 class="fw-bold mb-1" style="color: #4A2E2B;">陳建宇</h4>
+                        <span class="small d-block mb-3 fw-bold" style="color: #D4A373;">資深酸種麵包工藝師 / 台灣</span>
+                        <p class="text-muted small">世界麵包大賽在地食材組冠。善於將台灣小農契作乾果、茶葉與歐式野生酵母酸老麵結合，開創獨特的跨國經典風味。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="s07-timeline" style="background-image:linear-gradient(rgba(43,27,23,0.8), rgba(43,27,23,0.8)), url('https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1920&q=80');">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-4 fw-bold text-white">淬鍊完美的烘焙五部曲</h2>
+                <p style="color: #FAEDCD;">絕不妥協的時間成本，造就顆顆不凡的精品風味</p>
+            </div>
+
+            <div class="s07-timeline-section">
+                <div class="row align-items-center s07-timeline-section-pointer">
+                    <div class="col-lg-6 mb-4">
+                        <div class="s07-text">
+                            <div class="fw-bold small" style="color: #D4A373; letter-spacing: 2px;">STAGE 01</div>
+                            <h3 class="fw-bold mt-1" style="color: #4A2E2B;">野生酵母活化培育</h3>
+                            <p class="text-muted mb-0">使用嚴選黑麥與葡萄乾，在獨立無菌恆溫室中進行為期14天的初次活化，每日由主廚親自餵養，確保老麵菌種的最佳活性與獨特酸香風味。</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-4">
+                        <div class="s07-img" style="background-image:url('https://images.unsplash.com/photo-1589367920969-ab8e050bbb04?auto=format&fit=crop&w=600&q=80');"></div>
+                    </div>
+                </div>
+
+                <div class="row align-items-center flex-row-reverse s07-timeline-section-pointer">
+                    <div class="col-lg-6 mb-4">
+                        <div class="s07-text">
+                            <div class="fw-bold small" style="color: #D4A373; letter-spacing: 2px;">STAGE 02</div>
+                            <h3 class="fw-bold mt-1" style="color: #4A2E2B;">手工揉製與自我分解</h3>
+                            <p class="text-muted mb-0">將法國產區麵粉與純水混合，經過精確時間的「自我分解法 (Autolyse)」，讓麥小麥粉充分吸收水分生成完美麩質，再進行低速手工揉製，完整保留小麥原香。</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-4">
+                        <div class="s07-img" style="background-image:url('https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=600&q=80');"></div>
+                    </div>
+                </div>
+
+                <div class="row align-items-center s07-timeline-section-pointer">
+                    <div class="col-lg-6 mb-4">
+                        <div class="s07-text">
+                            <div class="fw-bold small" style="color: #D4A373; letter-spacing: 2px;">STAGE 03</div>
+                            <h3 class="fw-bold mt-1" style="color: #4A2E2B;">36小時低溫慢速發酵</h3>
+                            <p class="text-muted mb-0">將揉製完成的麵團放入 4°C 的專業恆溫發酵庫。在漫長時光中，澱粉緩慢轉化為高雅的醣類與細緻的風味分子，降低麵包升糖指數，更好消化、不易脹氣。</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-4">
+                        <div class="s07-img" style="background-image:url('https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&q=80');"></div>
+                    </div>
+                </div>
+
+                <div class="row align-items-center flex-row-reverse s07-timeline-section-pointer">
+                    <div class="col-lg-6 mb-4">
+                        <div class="s07-text">
+                            <div class="fw-bold small" style="color: #D4A373; letter-spacing: 2px;">STAGE 04</div>
+                            <h3 class="fw-bold mt-1" style="color: #4A2E2B;">專業割紋與美學塑造</h3>
+                            <p class="text-muted mb-0">由具有十年以上經驗的工藝師手工精準分割、整型，並在進爐前使用專用剃刀割出優美紋路，引導發酵氣體在最適當的角度綻放開裂，烘焙出完美的「耳朵」邊緣。</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-4">
+                        <div class="s07-img" style="background-image:url('https://images.unsplash.com/photo-1511018556340-d16986a1c194?auto=format&fit=crop&w=600&q=80');"></div>
+                    </div>
+                </div>
+
+                <div class="row align-items-center s07-timeline-section-pointer">
+                    <div class="col-lg-6 mb-4">
+                        <div class="s07-text">
+                            <div class="fw-bold small" style="color: #D4A373; letter-spacing: 2px;">STAGE 05</div>
+                            <h3 class="fw-bold mt-1" style="color: #4A2E2B;">高溫石板蒸汽烘焙</h3>
+                            <p class="text-muted mb-0">送入特製高溫歐式石板爐，瞬間注入飽滿的超高溫蒸汽。蒸汽在表面冷凝形成晶瑩薄脆的完美脆皮，內部則鎖住滿滿水分，達到外脆內Q彈的極致境界。</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-4">
+                        <div class="s07-img" style="background-image:url('https://images.unsplash.com/photo-1601662528567-526cd06f6582?auto=format&fit=crop&w=600&q=80');"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="s08-features" style="background-color: #FFFDF9;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-4 text-center px-4 mb-4 mb-md-0">
+                    <i class="fa-solid fa-seedling fa-5x my-3" style="color: #D4A373;"></i>
+                    <h3 class="fw-bold" style="color: #4A2E2B;">頂級天然原物料</h3>
+                    <p class="text-muted small">只選用頂級法國布爾喬亞麵粉、產區 AOP 發酵奶油與純淨布列塔尼鹽之花，從源頭杜絕所有非天然的基改添加物與改良劑。</p>
+                </div>
+                <div class="col-md-4 text-center px-4 mb-4 mb-md-0">
+                    <i class="fa-solid fa-heart-pulse fa-5x my-3" style="color: #D4A373;"></i>
+                    <h3 class="fw-bold" style="color: #4A2E2B;">健康輕負擔配方</h3>
+                    <p class="text-muted small">長時野生酸老麵能有效分解麥麩蛋白質，大幅降低麵包升糖指數，口感帶有自然微酸，讓腸胃極度敏感者也能輕鬆享受麥香。</p>
+                </div>
+                <div class="col-md-4 text-center px-4">
+                    <i class="fa-solid fa-fire-burner fa-5x my-3" style="color: #D4A373;"></i>
+                    <h3 class="fw-bold" style="color: #4A2E2B;">正統頂級石板爐</h3>
+                    <p class="text-muted small">捨棄傳統量產型旋轉爐，全面斥資引進德國大廠高規格重型石板熔岩蒸氣爐，確保每顆麵包底蘊均勻熟成，散發高雅燻烤麥焦香。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="s09-interior" class="position-relative p-0" style="background-color: #FAEDCD;">
+        <div class="container-fluid p-0">
+            <div class="row g-0">
+                <div class="col-md-6" style="background: url('https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1200&q=80') center/cover; min-height: 450px;"></div>
+                <div class="col-md-6 d-flex align-items-center" style="background-color: #4A2E2B;">
+                    <div class="p-5 text-white">
+                        <span class="fw-bold small" style="color: #D4A373;">BOUTIQUE ENVIRONMENT</span>
+                        <h2 class="display-5 fw-bold mt-2 mb-4">沉浸於溫暖的小麥美學空間</h2>
+                        <p class="lead mb-4" style="color: #FAEDCD;">我們將實體空間打造為一座兼具現代美學與古典烘焙坊溫度的複合型精品概念店。</p>
+                        <p class="small text-white-50 mb-4" style="line-height: 1.8;">全店採大地暖色調與實木質地交織，開放式明亮烘焙廚房設計，讓您在挑選麵包的同時，能親眼凝視大師揉麵切分與麥香出爐煙霧繚繞的極致工藝交響樂。一旁附設優雅的尊榮品茗區，提供精品手沖單品咖啡與在地頂級小農莊園茶，為您的晨間或午後時光點綴最完美的麥香協奏曲。</p>
+                        <a href="#s14-stores" class="btn btn-outline-light px-4" style="border-color: #D4A373; color: #D4A373; font-weight: bold;">查看全台精品店址</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="s10-reviews" style="background-color: #FFFDF9;">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold" style="color: #4A2E2B;">老饕們的真實感動迴響</h2>
+                <p class="text-muted">上萬名精品美食家一致推薦的極致無負擔風味</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="p-4 rounded-4 bg-white shadow-sm border hover-card">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="me-3">
+                                <h5 class="fw-bold mb-0" style="color: #4A2E2B;">林佩璇</h5>
+                                <span class="text-muted small">知名美食美食部落客</span>
+                            </div>
+                            <div class="ms-auto" style="color: #D4A373;">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-muted small mb-0">「本身是腸胃非常敏感、吃一般市售麵包極度容易脹氣胃食道逆流的人，第一次嘗試這裡的野生酸種魯邦麵包，不但完全沒有不舒服，反而被那種豐富且帶有高雅果香的溫潤酸韻深深迷倒！每天早餐再也離不開它了！」</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-4 rounded-4 bg-white shadow-sm border hover-card">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="me-3">
+                                <h5 class="fw-bold mb-0" style="color: #4A2E2B;">張維哲</h5>
+                                <span class="text-muted small">五星級飯店副主廚</span>
+                            </div>
+                            <div class="ms-auto" style="color: #D4A373;">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-muted small mb-0">「身為餐飲同行，不得不佩服世界麵包工坊對麵粉含水量與石板烤爐溫度的精準掌控。經典法棍的外殼薄脆，內裡氣孔漂亮且帶有迷人的嚼勁與濕潤度，乳香與麥香層次分明，絕對是國際頂尖水準。」</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="p-4 rounded-4 bg-white shadow-sm border hover-card">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="me-3">
+                                <h5 class="fw-bold mb-0" style="color: #4A2E2B;">Emily Watson</h5>
+                                <span class="text-muted small">法籍在台外商高管</span>
+                            </div>
+                            <div class="ms-auto" style="color: #D4A373;">
+                                <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                            </div>
+                        </div>
+                        <p class="text-muted small mb-0">「這間店徹底治癒了我的思鄉病！他們的可頌酥皮層次太精美了，咬下去的瞬間 AOP 奶油的濃郁香氣在口中炸開，完美展現了巴黎老烘焙坊才會有的極致水準。線上預訂系統也非常貼心方便。」</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="s11-faq" style="background-color: #FAEDCD;">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold" style="color: #4A2E2B;">完美麥香・烘焙小知識庫</h2>
+                <p class="text-muted">掌握正確保存與回烤秘訣，宛如大師每日在您家親自現烤出爐</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-9">
+                    <div class="accordion" id="faqAccordion">
+                        <div class="accordion-item mb-3 border-0 rounded-3 shadow-sm">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button fw-bold text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" style="background-color: #4A2E2B; border-radius: 8px;">
+                                    Q1：野生無添加老麵麵包買回家後，最推薦的保存方式是什麼？
+                                </button>
+                            </h2>
+                            <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body bg-white text-muted">
+                                    由於我們的麵包堅持不添加化學防腐劑，購買當天若未食用完畢，**請務必切片後裝入密封袋冷凍保存（可保存2週）**。千萬不要放進冷藏室，因為冷藏的溫度會迅速抽乾澱粉中的水分，導致麵包組織老化變乾、失去彈性。
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item mb-3 border-0 rounded-3 shadow-sm">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button fw-bold text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" style="background-color: #4A2E2B; border-radius: 8px;">
+                                    Q2：從冷凍庫拿出來後，如何完美回烤出酥脆Q彈的絕佳口感？
+                                </button>
+                            </h2>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body bg-white text-muted">
+                                    免解凍！回烤前請在麵包表面噴灑少許乾淨水霧。**烤箱預熱至 180°C 烘烤 4-6 分鐘**；或是使用電鍋外鍋不加水，按下開關進行「乾煎蒸烤」直到開關跳起。即可完美恢復剛出爐時外殼薄脆、內裡濕潤綿密的米其林精品絕佳口感。
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item border-0 rounded-3 shadow-sm">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button fw-bold text-white collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" style="background-color: #4A2E2B; border-radius: 8px;">
+                                    Q3：為什麼你們的歐式麵包吃起來帶有淡淡的微酸感？
+                                </button>
+                            </h2>
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body bg-white text-muted">
+                                    這淡淡的微酸是**天然野生乳酸菌與醋酸菌在長達36小時低溫慢速發酵過程中，自然生成的風味分子**，這正是傳統正統歐式酸種麵包 (Sourdough) 的靈魂所在！它不僅香氣豐富具有層次，更能有效降解麩質蛋白質，讓腸胃更好消化無負擔。
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="s12-pricing" style="background-color: #FFFDF9;">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold" style="color: #4A2E2B;">經典極致・今日出爐盛宴</h2>
+                <p class="text-muted">嚴選六款高人氣經典烘焙品項，尊享單點與奢華主廚特製組合</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 rounded-4 shadow-sm hover-card">
+                        <img src="https://images.unsplash.com/photo-1549931319-a545dcf3bc73?auto=format&fit=crop&w=600&h=400&q=80" alt="經典魯邦酸種" class="card-img-top rounded-top-4">
+                        <div class="card-body p-4 text-center">
+                            <h4 class="fw-bold" style="color: #4A2E2B;">頂級魯邦酸種老麵盛宴</h4>
+                            <p class="text-muted small">使用高達14天培育的精品老麵，外皮微焦富有煙燻麥香，內部濕潤Q彈。附贈義大利頂級特級初榨橄欖油。</p>
+                            <h3 class="fw-bold mt-3" style="color: #D4A373;">NT$ 135 <span class="small text-muted" style="font-size:14px;">/ 顆</span></h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 rounded-4 shadow-sm hover-card">
+                        <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=600&h=400&q=80" alt="法國AOP可頌" class="card-img-top rounded-top-4">
+                        <div class="card-body p-4 text-center">
+                            <h4 class="fw-bold" style="color: #4A2E2B;">法國 AOP 雙倍奶油可頌組</h4>
+                            <p class="text-muted small">兩入組。16層完美折疊工藝，高溫烘焙出極致蜂巢狀內部氣孔，咬下瞬間，法國莊園級奶油高雅乳香瞬間溢滿唇齒。</p>
+                            <h3 class="fw-bold mt-3" style="color: #D4A373;">NT$ 125 <span class="small text-muted" style="font-size:14px;">/ 兩入</span></h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="card col-md-4">
+                    <div class="card h-100 rounded-4 shadow-sm hover-card" style="border: none;">
+                        <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=600&h=400&q=80" alt="湯種生吐司" class="card-img-top rounded-top-4">
+                        <div class="card-body p-4 text-center">
+                            <h4 class="fw-bold" style="color: #4A2E2B;">極生湯種熟成宇治吐司</h4>
+                            <p class="text-muted small">採用日本高規格湯種燙麵技術，加入北海道十勝生乳熬煮，絲絨般綿密細緻的拉絲極致質地，連吐司邊都溫潤柔軟。</p>
+                            <h3 class="fw-bold mt-3" style="color: #D4A373;">NT$ 115 <span class="small text-muted" style="font-size:14px;">/ 條</span></h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 rounded-4 shadow-sm hover-card">
+                        <img src="https://images.unsplash.com/photo-1517433456452-f9633a875f6f?auto=format&fit=crop&w=600&h=400&q=80" alt="鹽可頌" class="card-img-top rounded-top-4">
+                        <div class="card-body p-4 text-center">
+                            <h4 class="fw-bold" style="color: #4A2E2B;">布列塔尼鹽之花脆皮鹽卷</h4>
+                            <p class="text-muted small">六入精品分享禮盒。底部金黃酥脆焦香，核心包裹著法國有鹽奶油，表面灑上極其珍貴的鹽之花結晶，微鹹回甘。</p>
+                            <h3 class="fw-bold mt-3" style="color: #D4A373;">NT$ 129 <span class="small text-muted" style="font-size:14px;">/ 盒</span></h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 rounded-4 shadow-sm hover-card">
+                        <img src="https://images.unsplash.com/photo-1511018556340-d16986a1c194?auto=format&fit=crop&w=600&h=400&q=80" alt="傳統法棍" class="card-img-top rounded-top-4">
+                        <div class="card-body p-4 text-center">
+                            <h4 class="fw-bold" style="color: #4A2E2B;">大師級巴黎精品石板法棍</h4>
+                            <p class="text-muted small">完美遵照法國烘焙法規。只以麵粉、水、酵母與鹽手工揉製，高溫蒸汽敲擊出薄脆如玻璃的外殼，麥稈香氣極其濃郁。</p>
+                            <h3 class="fw-bold mt-3" style="color: #D4A373;">NT$ 145 <span class="small text-muted" style="font-size:14px;">/ 支</span></h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 rounded-4 shadow-sm hover-card">
+                        <img src="https://images.unsplash.com/photo-1601662528567-526cd06f6582?auto=format&fit=crop&w=600&h=400&q=80" alt="肉桂捲" class="card-img-top rounded-top-4">
+                        <div class="card-body p-4 text-center">
+                            <h4 class="fw-bold" style="color: #4A2E2B;">錫蘭精品黑糖肉桂捲禮盒</h4>
+                            <p class="text-muted small">雙入奢華裝。嚴選斯里蘭卡頂級錫蘭肉桂粉，融入純手工熬煮沖繩黑糖蜜，頂層覆蓋厚厚大溪地香草奶油起司醬。</p>
+                            <h3 class="fw-bold mt-3" style="color: #D4A373;">NT$ 145 <span class="small text-muted" style="font-size:14px;">/ 雙入</span></h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="s13-booking" style="background-color: #FAEDCD;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-5 mb-4 mb-lg-0">
+                    <h2 class="display-5 fw-bold" style="color: #4A2E2B;">尊榮烘焙・客製化預留與餐會預訂</h2>
+                    <p class="text-muted mt-3">不管是日常出爐款式的提前預留，或是客製化大型商務茶會宴席規劃，只需填寫下方精確需求，我們將在2小時內由烘焙專員與您取得聯繫。</p>
+                    <div class="mt-4">
+                        <p class="mb-2 fw-bold" style="color: #4A2E2B;"><i class="fa-solid fa-phone me-2" style="color: #D4A373;"></i> 尊榮預訂專線：02-2765-4321</p>
+                        <p class="fw-bold" style="color: #4A2E2B;"><i class="fa-solid fa-envelope me-2" style="color: #D4A373;"></i> 企業外燴接洽：service@worldbakery.com</p>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="p-4 bg-white rounded-4 shadow">
+                        <form>
+                            <div class="row g-3">
+                                <div class="col-md-6 form-floating mb-1">
+                                    <input type="text" class="form-control form-control-lg" id="clientName" placeholder="姓名" required>
+                                    <label for="clientName" class="px-3">貴賓姓名</label>
+                                </div>
+                                <div class="col-md-6 form-floating mb-1">
+                                    <input type="tel" class="form-control form-control-lg" id="clientPhone" placeholder="電話" required>
+                                    <label for="clientPhone" class="px-3">聯絡電話</label>
+                                </div>
+                                <div class="col-12 form-floating mb-1">
+                                    <input type="email" class="form-control form-control-lg" id="clientEmail" placeholder="Email" required>
+                                    <label for="clientEmail" class="px-3">電子郵件信箱</label>
+                                </div>
+                                <div class="col-md-6 form-floating mb-1">
+                                    <select class="form-select form-select-lg" id="orderType">
+                                        <option value="1">每日新鮮出爐品項現場預留</option>
+                                        <option value="2">私人特殊節慶/彌月客製化訂製</option>
+                                        <option value="3">大型商務茶會外燴精緻餐點規劃</option>
+                                    </select>
+                                    <label for="orderType" class="px-3">預約服務類型</label>
+                                </div>
+                                <div class="col-md-6 form-floating mb-1">
+                                    <input type="date" class="form-control form-control-lg" id="targetDate" required>
+                                    <label for="targetDate" class="px-3">預計取貨/活動日期</label>
+                                </div>
+                                <div class="col-12">
+                                    <textarea class="form-control" id="specialNotes" rows="3" placeholder="請註明特殊飲食限制、過敏原需求、或外燴預估人數..."></textarea>
+                                </div>
+                                <div class="col-12 text-end mt-4">
+                                    <button type="reset" class="btn px-4 py-2 me-2 font-weight-bold" style="background-color: #E6B89C; color: #4A2E2B;">重填</button>
+                                    <button type="submit" class="btn px-5 data-submit-btn text-white py-2 font-weight-bold" style="background-color: #4A2E2B;">送出專屬預約表單</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="s14-stores" style="background-color: #FFFDF9;">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold" style="color: #4A2E2B;">探訪精品工坊門市</h2>
+                <p class="text-muted">期待在最溫暖的麥香角落，與您共譜一場完美的心靈烘焙對話</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="rounded-4 shadow-sm w-100 overflow-hidden" style="height: 380px;">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.7036495815615!2d121.56234347625123!3d25.04412353788574!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442abb6da9c9e1f%3A0x120d68661e712a6!2sTaipei%20101!5e0!3m2!1sen!2stw!4v1700000000000!5m2!1sen!2stw" 
+                                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+                <div class="col-md-6 d-flex flex-column justify-content-between py-2">
+                    <div class="p-4 rounded-4 mb-3 bg-white shadow-sm border-start border-4" style="border-start-color: #D4A373 !important;">
+                        <h4 class="fw-bold" style="color: #4A2E2B;"><i class="fa-solid fa-location-dot me-2" style="color: #D4A373;"></i> 台北信義旗艦工坊</h4>
+                        <p class="text-muted mb-1 small">門市地址：台北市信義區信義路五段7號 (台北101旁)</p>
+                        <p class="text-muted mb-1 small">營業時間：週一至週日 08:00 - 21:30</p>
+                        <p class="text-muted mb-0 small">門市電話：02-2765-4321</p>
+                    </div>
+                    <div class="p-4 rounded-4 mb-3 bg-white shadow-sm border-start border-4" style="border-start-color: #D4A373 !important;">
+                        <h4 class="fw-bold" style="color: #4A2E2B;"><i class="fa-solid fa-location-dot me-2" style="color: #D4A373;"></i> 台中公益概念工坊</h4>
+                        <p class="text-muted mb-1 small">門市地址：台中市西區公益路二段68號</p>
+                        <p class="text-muted mb-1 small">營業時間：週一至週日 09:00 - 21:00</p>
+                        <p class="text-muted mb-0 small">門市電話：04-2321-8888</p>
+                    </div>
+                    <div class="p-4 rounded-4 bg-white shadow-sm border-start border-4" style="border-start-color: #D4A373 !important;">
+                        <h4 class="fw-bold" style="color: #4A2E2B;"><i class="fa-solid fa-location-dot me-2" style="color: #D4A373;"></i> 高雄美術精品工坊</h4>
+                        <p class="text-muted mb-1 small">門市地址：高雄市鼓山區美術館路115號</p>
+                        <p class="text-muted mb-1 small">營業時間：週一至週日 10:00 - 20:30</p>
+                        <p class="text-muted mb-0 small">門市電話：07-555-9999</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <footer id="s15-footer" class="text-white py-5" style="background-color: #2B1B17; border-top: 3px solid #D4A373;">
+        <div class="container">
+            <div class="row g-4 align-items-center mb-4">
+                <div class="col-md-6 text-center text-md-start">
+                    <h4 class="fw-bold mb-2" style="color: #FFFDF9;"><i class="fa-solid fa-wheat-awn me-2" style="color: #D4A373;"></i> 世界麵包工坊</h4>
+                    <p class="small text-white-50 mb-0">© 2026 World Bakery Workshop. All Rights Reserved. 職人工藝・純粹傳承</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <ul class="nav justify-content-center justify-content-md-end footer-links">
+                        <li class="nav-item"><a class="nav-link px-2 active text-white-50 small" href="#">隱私權政策</a></li>
+                        <li class="nav-item"><a class="nav-link px-2 text-white-50 small" href="#">使用條款</a></li>
+                        <li class="nav-item"><a class="nav-link px-2 text-white-50 small" href="#">企業合作</a></li>
+                        <li class="nav-item"><a class="nav-link px-2 text-white-50 small" href="#">全台友站連結</a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr style="border-color: rgba(212,163,115,0.3)">
+            <div class="text-center pt-2">
+                <span class="text-white-50 small" style="font-size: 11px;">食品業者登錄字號：A-123456789-00000-1 | 本網站內容受著作權法保護，未經授權請勿轉載。</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
